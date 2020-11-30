@@ -17,7 +17,7 @@ variables:
 
 .base_deploy_kosko_stage:
   stage: Deploy
-  image: registry.gitlab.factory.social.gouv.fr/socialgouv/docker/kosko:2.0.1
+  image: registry.gitlab.factory.social.gouv.fr/socialgouv/docker/kosko:2.3.4
   dependencies: []
   cache:
     key:
@@ -47,7 +47,7 @@ variables:
         >> ${CI_PROJECT_DIR}/manifest.yaml
       fi
     #- kubectl apply -f ${CI_PROJECT_DIR}/manifest.yaml
-    - kapp -y deploy -a my-app -f ${CI_PROJECT_DIR}/manifest.yaml
+    - kapp -y deploy --debug --wait=false -a my-app -f ${CI_PROJECT_DIR}/manifest.yaml
     - |
       printf '\n****************************************************\n'
       echo "deployed on : ${CI_ENVIRONMENT_URL}\n"
