@@ -49,7 +49,7 @@ variables:
     #- kubectl apply -f ${CI_PROJECT_DIR}/manifest.yaml
     - |
       [ -z $PRODUCTION ] && kubectl create ns ${KUBE_NAMESPACE} || true
-    - kapp -y deploy -a ${CI_PROJECT_NAME} -f ${CI_PROJECT_DIR}/manifest.yaml
+    - kapp -y deploy -a ${CI_COMMIT_SHORT_SHA} -f ${CI_PROJECT_DIR}/manifest.yaml
     - |
       printf '\n****************************************************\n'
       echo "deployed on : ${CI_ENVIRONMENT_URL}\n"
