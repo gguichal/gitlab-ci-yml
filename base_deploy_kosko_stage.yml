@@ -46,7 +46,8 @@ variables:
           echo '---' \; -exec cat {} \; \
         >> ${CI_PROJECT_DIR}/manifest.yaml
       fi
-    - kubectl apply -f ${CI_PROJECT_DIR}/manifest.yaml
+    #- kubectl apply -f ${CI_PROJECT_DIR}/manifest.yaml
+    - kapp -y deploy -a my-app -f ${CI_PROJECT_DIR}/manifest.yaml
     - |
       printf '\n****************************************************\n'
       echo "deployed on : ${CI_ENVIRONMENT_URL}\n"
