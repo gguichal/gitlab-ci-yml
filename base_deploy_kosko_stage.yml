@@ -47,7 +47,9 @@ variables:
         >> ${CI_PROJECT_DIR}/manifest.yaml
       fi
     #- kubectl apply -f ${CI_PROJECT_DIR}/manifest.yaml
-    - kapp -y deploy --debug -a my-app -f ${CI_PROJECT_DIR}/manifest.yaml
+    - |
+      [ -z $PRODUCTION ] && kubectl create ns kapp || true
+    - kapp -y deploy --debug -n kapp -f ${CI_PROJECT_DIR}/manifest.yaml
     - |
       printf '\n****************************************************\n'
       echo "deployed on : ${CI_ENVIRONMENT_URL}\n"
