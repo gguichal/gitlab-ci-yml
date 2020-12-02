@@ -46,10 +46,10 @@ variables:
           echo '---' \; -exec cat {} \; \
         >> ${CI_PROJECT_DIR}/manifest.yaml
       fi
-    - |
-      [ -z $PRODUCTION ] && kubectl create ns ${KUBE_NAMESPACE} || true
+    # - |
+    #   [ -z $PRODUCTION ] && kubectl create ns ${KUBE_NAMESPACE} || true
     # - kapp -y delete -a ${CI_PROJECT_NAME} || true
-    - kapp -y deploy --diff-changes --wait-timeout 5m -a ${CI_PROJECT_NAME} -f ${CI_PROJECT_DIR}/manifest.yaml
+    - kapp -y deploy --wait-timeout 5m -a ${CI_PROJECT_NAME} --namespace ${KUBE_NAMESPACE} -f ${CI_PROJECT_DIR}/manifest.yaml
     - |
       printf '\n****************************************************\n'
       echo "deployed on : ${CI_ENVIRONMENT_URL}\n"
