@@ -46,9 +46,9 @@ variables:
           echo '---' \; -exec cat {} \; \
         >> ${CI_PROJECT_DIR}/manifest.yaml
       fi
-    # - |
-    #   [ -z $PRODUCTION ] && kubectl create ns ${KUBE_NAMESPACE} || true
-    # - kapp -y delete -a ${CI_PROJECT_NAME} || true
+    - |
+      [ -z $PRODUCTION ] && kubectl create ns ${KUBE_NAMESPACE} || true
+    - kubectl annotate ns ${KUBE_NAMESPACE} azure-pg-admin-user=sample-next-app || true
     - kapp -y deploy --wait-timeout 5m -a ${CI_PROJECT_NAME} --namespace ${KUBE_NAMESPACE} -f ${CI_PROJECT_DIR}/manifest.yaml
     - |
       printf '\n****************************************************\n'
